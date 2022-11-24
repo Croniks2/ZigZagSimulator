@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7ec13947284284c8d72ca577d0fd23, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  _moveSpeed: 1.5
+  _platformSize: 2
+  _levelsInfo:
+  - levelDifficulty: 0
+    platformPrefab: {fileID: 2977622427182157290, guid: 453765fbf88b55547a56ecc3581661c0, type: 3}
+  - levelDifficulty: 1
+    platformPrefab: {fileID: 1549637684268497800, guid: dbb026b9d05d2ef47b816ea35a07d945, type: 3}
+  - levelDifficulty: 2
+    platformPrefab: {fileID: 6807961965993044466, guid: 4f73115c795c26043b1b3daa86e06d94, type: 3}
+  _capsule: {fileID: 5718895955728756554, guid: 1335c2c28fadd8648999be361d940c8f, type: 3}
+  _maxCapsulesCount: 10
+  _boundsLength: 120
+  _boundsHeight: 5
+  _maxPltaformsCount: 50
+  _overridePlayerPrefs: 0
