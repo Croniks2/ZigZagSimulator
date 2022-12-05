@@ -33,19 +33,7 @@ public abstract class GenericUIViewSwitcher<ViewType, ViewBehaviour, View> : Mon
     {
         _uiAnimator.enabled = true;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            foreach(var entry in _viewsTypesAndViews)
-            {
-                Debug.Log($"entry.Key: {entry.Key}, entry.Value: {entry.Value} \n");
-                Debug.Log($"{new string('=', 40)}");
-            }
-        }
-    }
-
+    
     private void OnEnable()
     {
         var viewsBehaviours = _uiAnimator.GetBehaviours<ViewBehaviour>();

@@ -45,10 +45,11 @@ public class SphereController : MonoBehaviour
 
     public void Move()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _currentMoveDirecton *= -1;
-        }
+        // TODO: Использовать новую систему ввода !
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    _currentMoveDirecton *= -1;
+        //}
 
         _speedMultiplier += Time.deltaTime / 2f;
         if (_speedMultiplier > 1)
