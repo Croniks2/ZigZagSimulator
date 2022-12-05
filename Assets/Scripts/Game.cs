@@ -4,14 +4,14 @@ using System.Collections;
 using UnityEngine;
 
 using DG.Tweening;
-
+using UnityEngine.InputSystem;
 
 public class Game : MonoBehaviour
 {
     public event Action GameStart;
     public event Action GameFinish;
     public event Action<int> ScoresReceived;
-
+    
     [SerializeField] private UI _ui;
     [SerializeField] private SettingsObject _settings;
     
@@ -27,6 +27,7 @@ public class Game : MonoBehaviour
     
     [SerializeField, Space] private SphereController _sphereController;
 
+    private GameInput _gameInput;
     private ISettingsGetter _settingsGetter;
     private ReusablePlatform _platformPrefab;
     private PlatformSize _currentPlatformSize;
@@ -41,6 +42,8 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+        _gameInput = new GameInput();
+
         _settings.LoadSettings();
         _settingsGetter = _settings;
 
@@ -90,6 +93,8 @@ public class Game : MonoBehaviour
 
     private void AddHandlers()
     {
+        _gameInput.DefaultActionMap.SphereMoveDirectionChanged.started += OnSphereMoveDirectionChanged;
+
         _settingsGetter.SettingsChanged += OnSettingsChanged;
         _ui.TapedToStart += OnTapToStart;
         _platformsKicker.PlatformKicking += OnPlatformKicking;
@@ -99,6 +104,8 @@ public class Game : MonoBehaviour
 
     private void RemoveHandlers()
     {
+        _gameInput.DefaultActionMap.SphereMoveDirectionChanged.started -= OnSphereMoveDirectionChanged;
+
         _settingsGetter.SettingsChanged -= OnSettingsChanged;
         _ui.TapedToStart -= OnTapToStart;
         _platformsKicker.PlatformKicking -= OnPlatformKicking;
@@ -184,6 +191,7 @@ public class Game : MonoBehaviour
     {
         _playGame = true;
         GameStart?.Invoke();
+        _gameInput.DefaultActionMap.Enable();
     }
 
     private void OnSettingsChanged()
@@ -227,6 +235,7 @@ public class Game : MonoBehaviour
 
     private void OnSphereOutsidePlatform()
     {
+        _gameInput.DefaultActionMap.Disable();
         _playGame = false;
         
         _sphereController.LaunchFallAnimation(() => 
@@ -238,6 +247,11 @@ public class Game : MonoBehaviour
     private void OnScoresReceived(int scores)
     {
         ScoresReceived?.Invoke(scores);
+    }
+
+    private void OnSphereMoveDirectionChanged(InputAction.CallbackContext callbackContext)
+    {
+        _sphereController.ChangeDirection();
     }
 
     #endregion

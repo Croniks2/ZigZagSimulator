@@ -3,7 +3,9 @@ using System;
 using UnityEngine;
 
 using DG.Tweening;
-
+using UnityEngine.InputSystem;
+using UnityEngine.Animations;
+using UnityEngine.EventSystems;
 
 public class SphereController : MonoBehaviour
 {
@@ -36,7 +38,7 @@ public class SphereController : MonoBehaviour
     {
         _speed = _settingsGetter.MoveSpeed;
     }
-
+    
     public void Construct(ISettingsGetter settingsGetter)
     {
         _settingsGetter = settingsGetter;
@@ -44,13 +46,7 @@ public class SphereController : MonoBehaviour
     }
 
     public void Move()
-    {
-        // TODO: Использовать новую систему ввода !
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    _currentMoveDirecton *= -1;
-        //}
-
+    { 
         _speedMultiplier += Time.deltaTime / 2f;
         if (_speedMultiplier > 1)
         {
@@ -63,6 +59,11 @@ public class SphereController : MonoBehaviour
         {
             SphereOutsidePlatform?.Invoke();
         }
+    }
+
+    public void ChangeDirection()
+    {
+        _currentMoveDirecton *= -1;
     }
 
     public bool CheckGround()
