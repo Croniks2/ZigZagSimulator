@@ -67,7 +67,7 @@ public class Game : MonoBehaviour
 
         SetupGameComponents();
     }
-
+    
     private void Update()
     {
         if(_playGame == true)
@@ -79,12 +79,16 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
+        _gameInput.Enable();
+
         AddHandlers();
     }
 
     private void OnDisable()
     {
         RemoveHandlers();
+
+        _gameInput.Disable();
     }
 
     #endregion
