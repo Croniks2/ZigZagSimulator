@@ -19,6 +19,7 @@ public class SphereController : MonoBehaviour
     [SerializeField] private float _fallRange = 5f;
     [SerializeField] private LayerMask _groundCheckLayer;
 
+    private RaycastHit[] _raycastHits = new RaycastHit[1];
     private Transform _selfTransform;
     private Vector3 _currentMoveDirecton;
     private Vector3 _initialPosition;
@@ -68,7 +69,15 @@ public class SphereController : MonoBehaviour
 
     public bool CheckGround()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, 20f, _groundCheckLayer);
+        int hitsCount = Physics.RaycastNonAlloc(
+            transform.position, 
+            -Vector3.up, 
+            _raycastHits, 
+            20f, 
+            _groundCheckLayer
+        );
+        
+        return hitsCount > 0;
     }
 
     public void LaunchFallAnimation(Action actionAfter)

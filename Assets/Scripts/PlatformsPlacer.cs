@@ -17,6 +17,7 @@ public class PlatformsPlacer
     private LayerMask _physicsBoxMask;
     private Vector3 _physicsBoxSize;
     private Quaternion _physicsBoxRotation;
+    private Collider[] _overlapColliders = new Collider[1];
 
     private List<ReusablePlatform> _platforms;
     private ReusablePlatform _lastPlatform = null;
@@ -99,10 +100,10 @@ public class PlatformsPlacer
         
         int index = UnityEngine.Random.Range(0, 2);
         Vector3 newPosition = GetPositionByIndex(index);
-       
-        var colliders = Physics.OverlapBox(newPosition, _physicsBoxSize, _physicsBoxRotation, _physicsBoxMask);
+
+        var collidersCount = Physics.OverlapBoxNonAlloc(newPosition, _physicsBoxSize, _overlapColliders, _physicsBoxRotation, _physicsBoxMask);
         
-        if (colliders.Length > 0)
+        if (collidersCount > 0)
         {
             index = index == 0 ? 1 : 0;
             newPosition = GetPositionByIndex(index);
